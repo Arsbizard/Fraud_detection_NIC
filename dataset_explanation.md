@@ -1,4 +1,4 @@
-# Dataset exploration and understanding of fraud detection domain.
+# Dataset exploration and understanding of fraud detection domain
 Dataset contains two tables: Transaction Table, which contains money transactions information and Identity Table, in which identity information is stored: network connection information and digital signature associated with transactions.
 
 Explanation here is conducted using [information](https://www.kaggle.com/c/ieee-fraud-detection/discussion/101203) from dataset provider and `dataset_explore.py` script which prints unique values from dataset columns.
@@ -53,9 +53,7 @@ Recipient email domain, same format as P_emaildomain
 Certain transactions don't need recipient, so R_emaildomain might be null
 
 ### C1-C14
-Counting, such as how many addresses are found to be associated with the payment card, etc. The actual meaning is masked.
-Can you please give more examples of counts in the variables C1-15? Would these be like counts of phone numbers, email addresses, names associated with the user? I can't think of 15.
-Your guess is good, plus like device, ipaddr, billingaddr, etc. Also these are for both purchaser and recipient, which doubles the number.
+Counting, such as how many addresses are found to be associated with the payment card, etc.; Counts of phone numbers, email addresses, names associated with the user. The actual meaning is masked.
 
 ### D1-D15
 Timedelta, such as days between previous transaction, etc.
@@ -79,13 +77,17 @@ All Vesta features were derived as numerical. some of them are count of orders w
 [see above](#transactionid)
 
 ### id_XX
-id_01-id_11, id_13-id_14, id_17-id_22, id_24-id_26, id_32: Numerical features for identity, which is collected by Vesta and security partners such as device rating, ip_domain rating, proxy rating, etc. Also it recorded behavioral fingerprint like account login times/failed to login times, how long an account stayed on the page, etc. All of these are not able to elaborate due to security partner T&C. I hope you could get basic meaning of these features, and by mentioning them as numerical/categorical, you won't deal with them inappropriately.”
+Features for identity, which are collected by Vesta and security partners such as device rating, ip_domain rating, proxy rating, etc. 
+Also it recorded behavioral fingerprint like account login times/failed to login times, how long an account stayed on the page, etc.
+According to dataset provider, all of these are not able to elaborate due to security partner T&C.
+
+id_01-id_11, id_13-id_14, id_17-id_22, id_24-id_26, id_32: numerical values
 
 id_12, id_16, id_27, id_29: `['NotFound' 'Found']`
 
 id_15: `['New' 'Found' 'Unknown']`
 
-id_23: IP proxy information`['IP_PROXY:TRANSPARENT' 'IP_PROXY:ANONYMOUS' 'IP_PROXY:HIDDEN']`
+id_23: IP proxy information: `['IP_PROXY:TRANSPARENT' 'IP_PROXY:ANONYMOUS' 'IP_PROXY:HIDDEN']`
 
 id_28: `['New' 'Found']`
 
@@ -93,16 +95,16 @@ id_30: OS info (Windows/Mac OS X/Android/iOS + with or without version number / 
 
 id_31: browser info (name with or without version number)
 
-id_33: screen resolution (two integer numbers joined by 'x')
+id_33: screen resolution (two integer numbers joined by 'x', e.g. `'2560x1080'`)
 
 id_34: `['match_status:2' 'match_status:1' nan 'match_status:0' 'match_status:-1']`
 
 id_35-id_38: boolean values indicated by 'T' and 'F'
 
 ### DeviceType
-Type of device: mobile or desktop
+Type of device: `'mobile'` or `'desktop'`
 
 ### DeviceInfo
 Different uncategorized information about device.
 
-Examples: 'SAMSUNG SM-G892A Build/NRD90M', 'iOS Device', 'Windows', 'LDN-LX3 Build/HUAWEILDN-LX3', 'Z955A', 'LG-E975'
+Examples: `'SAMSUNG SM-G892A Build/NRD90M', 'iOS Device', 'Windows', 'LDN-LX3 Build/HUAWEILDN-LX3', 'Z955A', 'LG-E975'`
