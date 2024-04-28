@@ -24,9 +24,13 @@ def preprocessing_data(data):
     # Drop attributes with more than 50% missing values
     categorical_data = categorical_data.dropna(thresh=len(categorical_data)*0.5, axis=1)
 
+    # Transformation of emails (if needed)
+
     # Fill missing values with most frequent value
     imputer = SimpleImputer(strategy='most_frequent')
     categorical_data = pd.DataFrame(imputer.fit_transform(categorical_data), columns=categorical_data.columns)
+
+    # Merge small categories into 'Other' category (if needed)
 
     # One-hot encoding
     encoder = OneHotEncoder()
@@ -35,10 +39,13 @@ def preprocessing_data(data):
     # Combine processed numerical and categorical data
     processed_data = pd.concat([pd.DataFrame(numerical_data), pd.DataFrame(categorical_data_encoded)], axis=1)
 
-    # Oversampling with SMOTE
-    smote = SMOTE(random_state=42)
     processed_data.columns = processed_data.columns.astype(str)
     X_train, X_test, y_train, y_test = train_test_split(processed_data, is_fraud, test_size=0.2, stratify=is_fraud)
-    X_oversampled, y_oversampled = smote.fit_resample(X_train, y_train)
+    pipeline = Pipeline([
+        ('smote', SMOTE(random_state=42, sampling_strategy=0.3)),
+        ('under', RandomUnderSampler(random_state=42))
+    ])
+
+    X_resampled, y_resampled = pipeline.fit_resample(X_train, y_train)
     
-    return X_oversampled, y_oversampled, X_test, y_test
+    return X_resampled, y_resampled, X_test, y_test
